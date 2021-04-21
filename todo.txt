@@ -1,0 +1,12 @@
+[x] =: #equals
+[x] num: #zero to #nine 
+[x] op: #add #subtract #multiply #divide
+[x] . #decimal
+[x] clear #clear
+[x] display #display
+[] num op -> display
+[] no leading zero
+[] . handling
+[] two op handle
+[] = op -> cal 
+[] formular (3 + 5 * 6 - 2 / 4 = 32.5)

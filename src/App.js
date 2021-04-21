@@ -1,57 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { useState } from 'react';
+import './App.scss'
+
+const Calculator = (props) => {
+  return (
+    <div id="wrapper">
+      <div id="display"></div>
+      <div id="numbers">
+        <div>
+          <button id="seven">7</button>
+          <button id="eight">8</button>
+          <button id="nine">9</button>
+          </div>
+        <div>
+          <button id="four">4</button>
+          <button id="five">5</button>
+          <button id="sic">6</button>
+          </div>
+        <div>
+          <button id="one">1</button>
+          <button id="two">2</button>
+          <button id="three">3</button>
+        </div>
+        <div>
+          <button id="zero">0</button>
+          <button id="decimal">.</button>
+        </div>        
+      </div>  
+      <div id="operators">
+        <button id="divide">/</button>
+        <button id="multiply">*</button>
+        <button id="add">+</button>
+        <button id="subtract">-</button>
+        <button id="equals">=</button>
+        <button id="clear">AC</button>
+      </div>    
+    </div>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+      <Calculator />
   );
 }
 

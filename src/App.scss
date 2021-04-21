@@ -1,0 +1,33 @@
+$tempBorder: 1px solid black;
+
+body {
+
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    
+    button {
+        border: $tempBorder;
+        padding: 2em;
+        margin: .5em;
+    }    
+    
+    #wrapper {
+
+        #display { 
+            border: $tempBorder;
+            min-height: 60px;
+            margin: .5em
+        }
+    
+        // #numbers {
+
+        // }
+        
+        // #operators {
+
+        // }
+        
+    }
+}
