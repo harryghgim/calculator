@@ -1,86 +1,84 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss'
 
 
 const Calculator = () => {
-  const [str, setStr] = useState('0')
-  const [result, setResult] = useState('Change me')
 
-  // const [state, setState] = useState({
-  //   str: '0',
-  //   result: 'Change me'
+  const OPERATORS = ['/', '*', '-', '+']
+
+  const [str, setStr] = useState('0')
+  const [result, setResult] = useState('0')
+  const [hasDot, setHasDot] = useState(false)
+  const [operator, setOperator] = useState(null)
+
+  // useEffect(() => {
+  //   document.getElementById('display').textContent = str
   // })
 
-  function handleDot(e) {
-    const DOT = '.'
 
-    if (str.indexOf(DOT) > -1) {
+  function handleDot(e) {
+    const lastChar = str[str.length - 1]
+    const DOT = OPERATORS.includes(lastChar) ? '0.' : '.'
+
+    if (hasDot) {
       return false
     }
-
-    return setStr(str + DOT)
+    
+    setStr(prevStr => prevStr + DOT)
+    setHasDot(true)
   }
-
+  
   function handleNumber(e) {
     const strNum = e.target.textContent
+    const condition = str === '0' || str === result
 
-    if (str === '0') {
-      return setStr(strNum)
+    if (condition) {
+      setStr(strNum)
     }
-    return setStr(str + strNum)
+    else {
+      setStr(prevStr => prevStr + strNum)
+    }
   }
 
   function handleEqual(e) {    
-    const lastIdx = str.length - 1
-    const condition = str.indexOf('+') === lastIdx || 
-                      str.indexOf('-') === lastIdx ||
-                      str.indexOf('*') === lastIdx ||
-                      str.indexOf('/') === lastIdx
+    const trimmed = str.trim()
+    const lastIdx = trimmed.length - 1
+    const condition = OPERATORS.some((op) => trimmed.indexOf(op) === lastIdx)
+    // TODO
+
     if (condition) {
       return false
     }
-    return setResult(eval(str))
+    else {
+      setResult(`${eval(str)}`)
+      setStr(`${eval(str)}`)
+      setHasDot(false)
+    }
+
   }
 
   function handleAC(e) {
-    return setStr('0')
+    setStr('0')
+    setResult('0')
+    setHasDot(false)
   }
 
-  const handleDiv = (e) => {
-    const DIV = '/'
-    if (str.indexOf(DIV) === str.length - 1) {
-      return false
+   const handleOperation = (e) => {
+      const OPR = e.target.textContent  
+      
+      setOperator(OPR)
+      setStr(prevStr => prevStr + OPR)
+
     }
-    return setStr(`${str} ${DIV}`)
-  }
-  const handleMul = (e) => {
-    const MUL = '*'
-    if (str.indexOf(MUL) === str.length - 1) {
-      return false
-    }
-    return setStr(`${str} ${MUL}`)
-  }
-  const handleSub = (e) => { 
-    const SUB = '-'
-    if (str.indexOf(SUB) === str.length - 1) {
-      return false
-    }
-    return setStr(`${str} ${SUB}`)
-  }
-  const handleAdd = (e) => {
-    const ADD = '+'
-    if (str.indexOf(ADD) === str.length - 1) {
-      return false
-    }
-    return setStr(`${str} ${ADD}`)
-  }
+
+  console.log(str)
+  console.log(operator)
 
   return (
     <div id="wrapper">
       <div id="display-wrapper">
-        <div><span id="display">{result}</span></div>
-        <div><span id="type">{str}</span></div>
+        <div><span id="result">{result}</span></div>
+        <div><span id="display">{str}</span></div>
       </div>
       <div id="numbers">
         <div>
@@ -104,12 +102,12 @@ const Calculator = () => {
         </div>        
       </div>  
       <div id="operators">
-        <button onClick={handleDiv} id="divide">/</button>
-        <button onClick={handleMul} id="multiply">*</button>
-        <button onClick={handleAdd} id="add">+</button>
-        <button onClick={handleSub} id="subtract">-</button>
+        <button onClick={handleOperation} id="divide">/</button>
+        <button onClick={handleOperation} id="multiply">*</button>
+        <button onClick={handleOperation} id="add">+</button>
+        <button onClick={handleOperation} id="subtract">-</button>
         <button onClick={handleEqual} id="equals">=</button>
-        <button onClick={() => setStr('0')} id="clear">AC</button>
+        <button onClick={handleAC} id="clear">AC</button>
       </div>    
     </div>
   )

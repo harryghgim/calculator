@@ -4,8 +4,8 @@
 [x] . #decimal
 [x] clear #clear
 [x] display #display
-[] num op -> display
-[] no leading zero
+[x] num op -> display
+[x] no leading zero
 [] . handling
 [] two op handle
 [] = op -> cal 
