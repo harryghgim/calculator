@@ -58,40 +58,28 @@ const Calculator = () => {
   }
 
   const handleOperation = (e) => {
-    const OPR = e.target.textContent
-    const regex = /[0-9.]/g
+    let OPR = e.target.textContent
 
-    if (regex.test(str.slice(-1))) { // last char number or DOT
-      setOperator(OPR)
+    if (str.slice(-1).match(/[0-9.]/g)) { // last char number or DOT
       setStr(prevStr => prevStr + OPR)
-      setHasDot(false)
-      return false
-    } 
-
-    // last char operator
-    const matched = (operator + OPR).match(/^[/*]-$/g)
-    if (matched) {
-      setOperator(matched[0])
-      const newStr = str.slice(0,-1) + matched[0]
-      setStr(newStr)
-      setHasDot(false)
-      return false
     }
-
-    if ( operator.length === 1 && operator !== OPR ) {
-      setOperator(OPR)
-      setStr(prevStr => prevStr.slice(0,-1) + OPR)
-      setHasDot(false)
-      return false
+    else {
+      // last char operator
+      const matched = (operator + OPR).match(/^[/*]-$/g)
+      if (matched) {
+        OPR = matched[0]
+        setStr(str.slice(0,-1) + OPR)
+      }
+      else if ( operator.length === 1 && operator !== OPR ) {
+        setStr(prevStr => prevStr.slice(0,-1) + OPR)
+      }
+      else if (operator.length === 2 && operator !== OPR ) {
+        setStr(str.slice(0,-2) + OPR)
+      }
     }
+    setOperator(OPR)
+    setHasDot(false)
 
-    if (operator.length === 2 && operator !== OPR ) {
-      setOperator(OPR)
-      const newStr = str.slice(0,-2) + OPR
-      setStr(newStr)
-      setHasDot(false)
-      return false
-    }
   }
     
 
