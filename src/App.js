@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss'
 
 
@@ -77,15 +77,14 @@ const Calculator = () => {
         setStr(str.slice(0,-2) + OPR)
       }
     }
+
+    // run always 
     setOperator(OPR)
     setHasDot(false)
 
   }
-    
 
-  console.log(str)
-  console.log(operator)
-  console.log(result)
+
 
   return (
     <div id="wrapper">
@@ -95,34 +94,40 @@ const Calculator = () => {
       </div>
       <div id="numbers">
         <div>
-          <button onClick={handleNumber} id="seven">7</button>
-          <button onClick={handleNumber} id="eight">8</button>
-          <button onClick={handleNumber} id="nine">9</button>
+          <Keypad handler={handleNumber} id="seven" number="7"/>
+          <Keypad handler={handleNumber} id="eight" number="8"/>
+          <Keypad handler={handleNumber} id="nine" number="9"/>
           </div>
         <div>
-          <button onClick={handleNumber} id="four">4</button>
-          <button onClick={handleNumber} id="five">5</button>
-          <button onClick={handleNumber} id="six">6</button>
+          <Keypad handler={handleNumber} id="four" number="4"/>
+          <Keypad handler={handleNumber} id="five" number="5"/>
+          <Keypad handler={handleNumber} id="six" number="6"/>
           </div>
         <div>
-          <button onClick={handleNumber} id="one">1</button>
-          <button onClick={handleNumber} id="two">2</button>
-          <button onClick={handleNumber} id="three">3</button>
+          <Keypad handler={handleNumber} id="one" number="1"/>
+          <Keypad handler={handleNumber} id="two" number="2"/>
+          <Keypad handler={handleNumber} id="three" number="3"/>
         </div>
         <div>
-          <button onClick={handleNumber} id="zero">0</button>
-          <button onClick={handleDot} id="decimal">.</button>
+          <Keypad handler={handleNumber} id="zero" number="0"/>
+          <Keypad handler={handleDot} id="decimal" number="."/>
         </div>        
       </div>  
       <div id="operators">
-        <button onClick={handleOperation} id="divide">/</button>
-        <button onClick={handleOperation} id="multiply">*</button>
-        <button onClick={handleOperation} id="add">+</button>
-        <button onClick={handleOperation} id="subtract">-</button>
-        <button onClick={handleEqual} id="equals">=</button>
-        <button onClick={handleAC} id="clear">AC</button>
+        <Keypad handler={handleOperation} id="divide" number="/" />
+        <Keypad handler={handleOperation} id="multiply" number="*" />
+        <Keypad handler={handleOperation} id="add" number="+" />
+        <Keypad handler={handleOperation} id="subtract" number="-" />
+        <Keypad handler={handleEqual} id="equals" number="=" />
+        <Keypad handler={handleAC} id="clear" number="AC" />
       </div>    
     </div>
+  )
+}
+
+const Keypad = (props) => {
+  return (
+    <button onClick={props.handler} id={props.id}>{props.number}</button>
   )
 }
 
