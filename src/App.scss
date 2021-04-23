@@ -15,9 +15,15 @@ body {
     
     #wrapper {
 
+        display: grid;
+        grid-template-areas:
+                        "head head"
+                        "left right";
+
         #display-wrapper { 
             border: $tempBorder;
             margin: .5em;
+            grid-area: head;
 
             & > div {
                 border: $tempBorder;
@@ -41,13 +47,27 @@ body {
             }
         }
     
-        // #numbers {
-
-        // }
+        #numbers {
+            grid-area: left;
+        }
         
-        // #operators {
+        #operators {
+            grid-area: right;
+            display: flex;
+            & > div:first-child {
+                display: flex;
+                flex-direction: column;
+            }
 
-        // }
+            & > div:last-child {
+                display: flex;
+                flex-direction: column-reverse;
+
+                & > :first-child, & > :last-child {
+                    flex-grow: 0.5
+                }
+            }
+        }
         
     }
 }

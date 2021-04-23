@@ -44,7 +44,9 @@ const Calculator = () => {
       return false
     }
     
-    setResult(`${eval(str)}`)
+    setResult(() => {
+      return eval(str).toString()
+    })
     setStr(`${eval(str)}`)
     setOperator(null)
     setHasDot(false)
@@ -62,11 +64,11 @@ const Calculator = () => {
     // IF LAST CHAR IN /*-+. THEN HASDOT FALSE
     if ( str.match(/.*[/*-+.]$/g) ) {
       setHasDot(false)
-      // setOp
     }
 
     setStr(prevStr => {
-      return prevStr.length === 1 ?
+
+      return str.match(/^-\d$/g) || prevStr.length === 1 ?
              '0' : 
              prevStr.slice(0,-1)
     })
@@ -74,10 +76,12 @@ const Calculator = () => {
   }
 
   const handleOperation = (e) => {
-    let OPR = e.target.textContent
+    let OPR = e.target.textContent    
 
-    if (str.slice(-1).match(/[0-9.]/g)) { // last char number or DOT
-      setStr(prevStr => prevStr + OPR)
+    if (str.match(/.*[0-9.]$/g)) { // last char number or DOT
+      setStr(prevStr => {
+        return prevStr + OPR
+      })
     }
     else {
       // last char operator
@@ -126,18 +130,28 @@ const Calculator = () => {
         <div>
           <Keypad handler={handleNumber} id="zero" number="0"/>
           <Keypad handler={handleDot} id="decimal" number="."/>
-          <button onClick={handleBackspace}><i class="fas fa-backspace"></i></button>
+          <Backspace handler={handleBackspace}/>
         </div>        
       </div>  
       <div id="operators">
-        <Keypad handler={handleOperation} id="divide" number="/" />
-        <Keypad handler={handleOperation} id="multiply" number="*" />
-        <Keypad handler={handleOperation} id="add" number="+" />
-        <Keypad handler={handleOperation} id="subtract" number="-" />
-        <Keypad handler={handleEqual} id="equals" number="=" />
-        <Keypad handler={handleAC} id="clear" number="AC" />
+        <div>
+          <Keypad handler={handleOperation} id="divide" number="/" />
+          <Keypad handler={handleOperation} id="multiply" number="*" />
+          <Keypad handler={handleOperation} id="add" number="+" />
+          <Keypad handler={handleOperation} id="subtract" number="-" />
+        </div>
+        <div>
+          <Keypad handler={handleEqual} id="equals" number="=" />
+          <Keypad handler={handleAC} id="clear" number="AC" />
+        </div>
       </div>    
     </div>
+  )
+}
+
+const Backspace = (props) => {
+  return (
+    <button id="backspace" onClick={props.handler}><i class="fas fa-backspace"></i></button>
   )
 }
 
