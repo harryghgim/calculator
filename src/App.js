@@ -11,13 +11,8 @@ const Calculator = () => {
   const [hasDot, setHasDot] = useState(false)
   const [operator, setOperator] = useState(null)
 
-  // useEffect(() => {
-  //   document.getElementById('display').textContent = str
-  // })
-
-
   function handleDot(e) {
-    const lastChar = str[str.length - 1]
+    const lastChar = str.slice(-1)
     const DOT = OPERATORS.includes(lastChar) ? '0.' : '.'
 
     if (hasDot) {
@@ -41,38 +36,68 @@ const Calculator = () => {
   }
 
   function handleEqual(e) {    
-    const trimmed = str.trim()
-    const lastIdx = trimmed.length - 1
-    const condition = OPERATORS.some((op) => trimmed.indexOf(op) === lastIdx)
+    const condition = OPERATORS.some((op) => str.endsWith(op))
+
     // TODO
 
     if (condition) {
       return false
     }
-    else {
-      setResult(`${eval(str)}`)
-      setStr(`${eval(str)}`)
-      setHasDot(false)
-    }
-
+    
+    setResult(`${eval(str)}`)
+    setStr(`${eval(str)}`)
+    setOperator(null)
+    setHasDot(false)
   }
 
   function handleAC(e) {
     setStr('0')
     setResult('0')
     setHasDot(false)
+    setOperator(null)
   }
 
-   const handleOperation = (e) => {
-      const OPR = e.target.textContent  
-      
+  const handleOperation = (e) => {
+    const OPR = e.target.textContent
+    const regex = /[0-9.]/g
+
+    if (regex.test(str.slice(-1))) { // last char number or DOT
       setOperator(OPR)
       setStr(prevStr => prevStr + OPR)
+      setHasDot(false)
+      return false
+    } 
 
+    // last char operator
+    const matched = (operator + OPR).match(/^[/*]-$/g)
+    if (matched) {
+      setOperator(matched[0])
+      const newStr = str.slice(0,-1) + matched[0]
+      setStr(newStr)
+      setHasDot(false)
+      return false
     }
+
+    if ( operator.length === 1 && operator !== OPR ) {
+      setOperator(OPR)
+      setStr(prevStr => prevStr.slice(0,-1) + OPR)
+      setHasDot(false)
+      return false
+    }
+
+    if (operator.length === 2 && operator !== OPR ) {
+      setOperator(OPR)
+      const newStr = str.slice(0,-2) + OPR
+      setStr(newStr)
+      setHasDot(false)
+      return false
+    }
+  }
+    
 
   console.log(str)
   console.log(operator)
+  console.log(result)
 
   return (
     <div id="wrapper">
