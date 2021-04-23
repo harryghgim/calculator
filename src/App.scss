@@ -1,33 +1,60 @@
 $tempBorder: 1px solid black;
+$brightColor: rgb(215, 215, 215);
+$spaceGrey: rgb(109, 109, 109);
+$round: 10px;
+$thick: 2px;
+$numberHover: rgb(230, 230, 230);
+
 
 body {
-
+    background-color: rgb(66, 66, 66);
     display: flex;
     height: 100vh;
     justify-content: center;
     align-items: center;
+
     
     button {
         border: $tempBorder;
-        padding: 2em;
-        margin: .5em;
+        padding: 1em;
+        margin: .2em;
+        font-size: 1.5em;
+        min-width: 80px;
+        border-radius: $round;
+        border-width: $thick;
+        box-shadow: 1px 1px 2px black;
+        
+        &:focus {
+            outline: 0;
+        }
     }    
     
     #wrapper {
-
+        background-color: $spaceGrey;
+        border: $tempBorder;
+        border-radius: $round;
+        border-width: $thick;
+        padding: 1em;
         display: grid;
         grid-template-areas:
                         "head head"
                         "left right";
 
         #display-wrapper { 
+            background-color: $brightColor;
             border: $tempBorder;
+            border-width: 3px;
+            border-radius: $round;
             margin: .5em;
             grid-area: head;
+            font-size: 2em;
+
+            & > div:first-child {
+                border-bottom: 3px solid black;
+            }
 
             & > div {
-                border: $tempBorder;
-                min-height: 30px;
+                min-height: 50px;
                 text-align: right;   
                 display: flex;
                 align-items: center;
@@ -45,15 +72,34 @@ body {
                     color: red;
                 }
             }
+
         }
     
         #numbers {
             grid-area: left;
+
+            button {
+                background-color: $brightColor;
+
+                &:hover {
+                    background-color: $numberHover;
+                }
+            }
+
         }
         
         #operators {
             grid-area: right;
             display: flex;
+
+            button {
+                background-color: orange;
+
+                &:hover {
+                    background-color:rgb(255, 196, 0);
+                }
+            }
+
             & > div:first-child {
                 display: flex;
                 flex-direction: column;
