@@ -6,7 +6,13 @@
 [x] display #display
 [x] num op -> display
 [x] no leading zero
-[] . handling
-[] two op handle
-[] = op -> cal 
-[] formular (3 + 5 * 6 - 2 / 4 = 32.5)
+[x] . handling
+[x] two op handle
+[x] = op -> cal 
+[x] formular (3 + 5 * 6 - 2 / 4 = 32.5)
+
+[] favicon
+[] design
+[] component
+[x] backspace
+[] number \s operator \s  

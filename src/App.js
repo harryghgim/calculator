@@ -57,6 +57,22 @@ const Calculator = () => {
     setOperator(null)
   }
 
+  function handleBackspace(e) {
+
+    // IF LAST CHAR IN /*-+. THEN HASDOT FALSE
+    if ( str.match(/.*[/*-+.]$/g) ) {
+      setHasDot(false)
+      // setOp
+    }
+
+    setStr(prevStr => {
+      return prevStr.length === 1 ?
+             '0' : 
+             prevStr.slice(0,-1)
+    })
+
+  }
+
   const handleOperation = (e) => {
     let OPR = e.target.textContent
 
@@ -85,7 +101,6 @@ const Calculator = () => {
   }
 
 
-
   return (
     <div id="wrapper">
       <div id="display-wrapper">
@@ -111,6 +126,7 @@ const Calculator = () => {
         <div>
           <Keypad handler={handleNumber} id="zero" number="0"/>
           <Keypad handler={handleDot} id="decimal" number="."/>
+          <button onClick={handleBackspace}><i class="fas fa-backspace"></i></button>
         </div>        
       </div>  
       <div id="operators">
