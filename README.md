@@ -4,7 +4,7 @@
 
 Hi there. This is a javascript calculator. It created it based on [Build a JavaScript Calculator project in freeCodeCamp](https://www.freecodecamp.org/learn/front-end-libraries/front-end-libraries-projects/build-a-javascript-calculator). 
 
-**[Go to play](http://harryghgim.github.io/calculator)**
+**[Go to play](https://harryghgim.github.io/calculator/)**
 
 ## Skills
 
